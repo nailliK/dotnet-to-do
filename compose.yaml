@@ -1,0 +1,10 @@
+﻿services:
+  todos:
+    image: todos
+    build:
+      context: .
+      dockerfile: ToDos/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  
