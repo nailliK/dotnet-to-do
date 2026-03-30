@@ -63,7 +63,7 @@ const CreateToDoModal = React.forwardRef<HTMLDialogElement, CreateToDoModalProps
               <button
                 type="button"
                 className="btn"
-                onClick={() => (ref as React.RefObject<HTMLDialogElement>).current?.close()}
+                onClick={() => ref.current.close()}
               >
                 Cancel
               </button>

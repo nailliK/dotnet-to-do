@@ -14,8 +14,8 @@ export default function RegisterForm() {
     setError('');
 
     const formData = new FormData(e.currentTarget);
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
+    const username = formData.get('username');
+    const password = formData.get('password');
 
     if (!username || !password) {
       setError('Username and password are required');

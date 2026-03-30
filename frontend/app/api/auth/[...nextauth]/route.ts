@@ -14,12 +14,9 @@ const handler = NextAuth({
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) return null;
 
-        const url = `${API_URL}/api/auth/login`;
-        console.log('[NextAuth] authorize hitting:', url);
-
         let res;
         try {
-          res = await fetch(url, {
+          res = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -27,15 +24,11 @@ const handler = NextAuth({
               password: credentials.password,
             }),
           });
-        } catch (err) {
-          console.error('[NextAuth] fetch failed:', err);
+        } catch {
           return null;
         }
 
-        if (!res.ok) {
-          console.error('[NextAuth] API returned:', res.status, await res.text().catch(() => ''));
-          return null;
-        }
+        if (!res.ok) return null;
 
         let data;
         try {

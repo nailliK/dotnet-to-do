@@ -78,10 +78,10 @@ public class ToDoService : IToDoService
 
         if (request.Title is not null) item.Title = request.Title;
         if (request.Description is not null) item.Description = request.Description;
-        if (request.Status.HasValue) item.Status = request.Status.Value;
-        if (request.SortOrder.HasValue) item.SortOrder = request.SortOrder.Value;
-        if (request.ParentId.HasValue) item.ParentId = request.ParentId.Value;
-        if (request.BlockedById.HasValue) item.BlockedById = request.BlockedById.Value;
+        if (request.Status is not null) item.Status = request.Status.Value;
+        if (request.SortOrder is not null) item.SortOrder = request.SortOrder.Value;
+        if (request.ParentId is not null) item.ParentId = request.ParentId.Value;
+        if (request.BlockedById is not null) item.BlockedById = request.BlockedById.Value;
 
         await _db.SaveChangesAsync();
         return ServiceResult<bool>.Ok(true);
