@@ -24,10 +24,12 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         _factory = factory;
     }
 
+    private static int _counter;
+
     private async Task<(HttpClient client, string token)> CreateAuthenticatedClient()
     {
         var client = _factory.CreateClient();
-        var username = "testuser" + Guid.NewGuid();
+        var username = $"testuser_{Interlocked.Increment(ref _counter)}";
 
         var response = await client.PostAsJsonAsync("/api/auth/register",
           new AuthRequest { UserName = username, Password = "password123" });

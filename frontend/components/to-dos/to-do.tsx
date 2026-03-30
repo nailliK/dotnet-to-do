@@ -48,7 +48,6 @@ export default function ToDo({
       title: todo.title,
       description: todo.description,
       status: todo.status,
-      sortOrder: todo.sortOrder,
       parentId: parentId,
       blockedById: todo.blockedById,
     });

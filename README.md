@@ -68,4 +68,5 @@ docker compose build --no-cache && docker compose up -d
 - Front and back-end pagination
 - Use raw SQL for querying children during soft-delete cascades
 - Rate limiting on auth endpoints
-- Backend validation for blocked-by status enforcement    
+- Backend validation for blocked-by status enforcement
+- More confetti

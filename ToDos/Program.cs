@@ -9,14 +9,6 @@ using ToDos.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Validate required configuration
-var jwtKey = builder.Configuration["Jwt:Key"]
-    ?? throw new InvalidOperationException("Jwt:Key is not configured. Use user-secrets or environment variables.");
-var jwtIssuer = builder.Configuration["Jwt:Issuer"]
-    ?? throw new InvalidOperationException("Jwt:Issuer is not configured.");
-var jwtAudience = builder.Configuration["Jwt:Audience"]
-    ?? throw new InvalidOperationException("Jwt:Audience is not configured.");
-
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=todos.db")
         .AddInterceptors(new SoftDeleteInterceptor()));
@@ -35,9 +27,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtIssuer,
-            ValidAudience = jwtAudience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]
+                    ?? throw new InvalidOperationException("Jwt:Key is not configured.")))
         };
     });
 

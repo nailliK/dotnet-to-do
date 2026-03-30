@@ -91,7 +91,7 @@ export default function ToDos() {
 
   return (
     <>
-    <Confetti key={confettiKey} recycle={false} numberOfPieces={confettiKey > 0 ? 300 : 0} />
+    <Confetti key={confettiKey} recycle={false} numberOfPieces={confettiKey > 0 ? 300 : 0} style={{position: 'fixed', top: 0, left: 0, pointerEvents: 'none'}} />
     <div className="grid grid-cols-1 gap-4 justify-center content-center">
       <form className="flex gap-1 justify-self-center" onReset={() => setActiveFilters(new Set())}>
         {(['Pending', 'InProgress', 'Completed', 'Cancelled'] as ToDoStatus[]).map(status => (
