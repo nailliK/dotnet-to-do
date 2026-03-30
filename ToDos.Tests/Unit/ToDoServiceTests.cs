@@ -1,3 +1,4 @@
+using ToDos.Data;
 using ToDos.Dtos;
 using ToDos.Enums;
 using ToDos.Models;
@@ -17,7 +18,7 @@ public class ToDoServiceTests
         _testUser = new User { Id = _userId, UserName = "testuser", PasswordHash = "hash" };
     }
 
-    private (ToDoService service, Data.AppDbContext db) CreateService()
+    private (ToDoService service, AppDbContext db) CreateService()
     {
         var db = TestDbContext.Create();
         db.Users.Add(_testUser);

@@ -9,9 +9,9 @@ public static class TestDbContext
     public static AppDbContext Create()
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
-            .AddInterceptors(new SoftDeleteInterceptor())
-            .Options;
+          .UseInMemoryDatabase(Guid.NewGuid().ToString())
+          .AddInterceptors(new SoftDeleteInterceptor())
+          .Options;
 
         var context = new AppDbContext(options);
         context.Database.EnsureCreated();

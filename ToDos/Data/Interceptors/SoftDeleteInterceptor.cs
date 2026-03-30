@@ -7,15 +7,15 @@ namespace ToDos.Data.Interceptors;
 public class SoftDeleteInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(
-        DbContextEventData eventData, InterceptionResult<int> result)
+      DbContextEventData eventData, InterceptionResult<int> result)
     {
         HandleSoftDeletes(eventData.Context);
         return base.SavingChanges(eventData, result);
     }
 
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
-        DbContextEventData eventData, InterceptionResult<int> result,
-        CancellationToken cancellationToken = default)
+      DbContextEventData eventData, InterceptionResult<int> result,
+      CancellationToken cancellationToken = default)
     {
         HandleSoftDeletes(eventData.Context);
         return base.SavingChangesAsync(eventData, result, cancellationToken);

@@ -11,8 +11,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         entity.HasQueryFilter(u => !u.IsDeleted);
 
         entity.HasMany(u => u.ToDos)
-            .WithOne(t => t.CreatedBy)
-            .HasForeignKey(t => t.CreatedById)
-            .OnDelete(DeleteBehavior.ClientCascade);
+          .WithOne(t => t.CreatedBy)
+          .HasForeignKey(t => t.CreatedById)
+          .OnDelete(DeleteBehavior.ClientCascade);
     }
 }

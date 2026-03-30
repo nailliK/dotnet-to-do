@@ -28,18 +28,18 @@ public class TestApiFactory : WebApplicationFactory<Program>
         {
             // Remove all EF-related registrations
             var descriptorsToRemove = services
-                .Where(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>)
-                         || d.ServiceType == typeof(AppDbContext)
-                         || d.ServiceType.FullName?.Contains("EntityFrameworkCore") == true)
-                .ToList();
+          .Where(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>)
+                      || d.ServiceType == typeof(AppDbContext)
+                      || d.ServiceType.FullName?.Contains("EntityFrameworkCore") == true)
+          .ToList();
 
             foreach (var descriptor in descriptorsToRemove)
                 services.Remove(descriptor);
 
             // Replace with in-memory database — same DB name for the lifetime of the factory
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase(_dbName)
-                    .AddInterceptors(new SoftDeleteInterceptor()));
+          options.UseInMemoryDatabase(_dbName)
+            .AddInterceptors(new SoftDeleteInterceptor()));
         });
 
         builder.UseEnvironment("Development");

@@ -11,16 +11,16 @@ public class ToDoConfiguration : IEntityTypeConfiguration<ToDo>
         entity.HasQueryFilter(t => !t.IsDeleted);
 
         entity.Property(t => t.Status)
-            .HasConversion<string>();
+          .HasConversion<string>();
 
         entity.HasOne(t => t.Parent)
-            .WithMany(t => t.Children)
-            .HasForeignKey(t => t.ParentId)
-            .OnDelete(DeleteBehavior.ClientCascade);
+          .WithMany(t => t.Children)
+          .HasForeignKey(t => t.ParentId)
+          .OnDelete(DeleteBehavior.ClientCascade);
 
         entity.HasOne(t => t.BlockedBy)
-            .WithMany(t => t.Blocking)
-            .HasForeignKey(t => t.BlockedById)
-            .OnDelete(DeleteBehavior.SetNull);
+          .WithMany(t => t.Blocking)
+          .HasForeignKey(t => t.BlockedById)
+          .OnDelete(DeleteBehavior.SetNull);
     }
 }

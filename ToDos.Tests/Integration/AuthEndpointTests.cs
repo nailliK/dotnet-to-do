@@ -20,7 +20,7 @@ public class AuthEndpointTests : IClassFixture<TestApiFactory>
         var client = _factory.CreateClient();
 
         var response = await client.PostAsJsonAsync("/api/auth/register",
-            new AuthRequest { UserName = "integrationuser" + Guid.NewGuid(), Password = "password123" });
+          new AuthRequest { UserName = "integrationuser" + Guid.NewGuid(), Password = "password123" });
 
         response.EnsureSuccessStatusCode();
         var data = await response.Content.ReadFromJsonAsync<AuthResponse>();
@@ -35,10 +35,10 @@ public class AuthEndpointTests : IClassFixture<TestApiFactory>
         var username = "dupeuser" + Guid.NewGuid();
 
         await client.PostAsJsonAsync("/api/auth/register",
-            new AuthRequest { UserName = username, Password = "password123" });
+          new AuthRequest { UserName = username, Password = "password123" });
 
         var response = await client.PostAsJsonAsync("/api/auth/register",
-            new AuthRequest { UserName = username, Password = "password123" });
+          new AuthRequest { UserName = username, Password = "password123" });
 
         Assert.Equal(HttpStatusCode.Conflict, response.StatusCode);
     }
@@ -50,10 +50,10 @@ public class AuthEndpointTests : IClassFixture<TestApiFactory>
         var username = "logintest" + Guid.NewGuid();
 
         await client.PostAsJsonAsync("/api/auth/register",
-            new AuthRequest { UserName = username, Password = "password123" });
+          new AuthRequest { UserName = username, Password = "password123" });
 
         var response = await client.PostAsJsonAsync("/api/auth/login",
-            new AuthRequest { UserName = username, Password = "password123" });
+          new AuthRequest { UserName = username, Password = "password123" });
 
         response.EnsureSuccessStatusCode();
         var data = await response.Content.ReadFromJsonAsync<AuthResponse>();
@@ -68,10 +68,10 @@ public class AuthEndpointTests : IClassFixture<TestApiFactory>
         var username = "wrongpw" + Guid.NewGuid();
 
         await client.PostAsJsonAsync("/api/auth/register",
-            new AuthRequest { UserName = username, Password = "correct" });
+          new AuthRequest { UserName = username, Password = "correct" });
 
         var response = await client.PostAsJsonAsync("/api/auth/login",
-            new AuthRequest { UserName = username, Password = "wrong" });
+          new AuthRequest { UserName = username, Password = "wrong" });
 
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
@@ -82,7 +82,7 @@ public class AuthEndpointTests : IClassFixture<TestApiFactory>
         var client = _factory.CreateClient();
 
         var response = await client.PostAsJsonAsync("/api/auth/login",
-            new AuthRequest { UserName = "nobody" + Guid.NewGuid(), Password = "password" });
+          new AuthRequest { UserName = "nobody" + Guid.NewGuid(), Password = "password" });
 
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }

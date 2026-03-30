@@ -27,10 +27,10 @@ public class ToDoService : IToDoService
     public async Task<ServiceResult<IEnumerable<ToDoResponse>>> GetAll(Guid userId)
     {
         var items = await _db.ToDos
-            .Where(t => t.CreatedById == userId)
-            .OrderBy(t => t.SortOrder)
-            .Select(t => MapToResponse(t))
-            .ToListAsync();
+          .Where(t => t.CreatedById == userId)
+          .OrderBy(t => t.SortOrder)
+          .Select(t => MapToResponse(t))
+          .ToListAsync();
 
         return ServiceResult<IEnumerable<ToDoResponse>>.Ok(items);
     }
@@ -38,7 +38,7 @@ public class ToDoService : IToDoService
     public async Task<ServiceResult<ToDoResponse>> GetById(Guid id, Guid userId)
     {
         var item = await _db.ToDos
-            .FirstOrDefaultAsync(t => t.Id == id && t.CreatedById == userId);
+          .FirstOrDefaultAsync(t => t.Id == id && t.CreatedById == userId);
 
         if (item is null)
             return ServiceResult<ToDoResponse>.Fail(404, "To-do not found");
@@ -57,6 +57,7 @@ public class ToDoService : IToDoService
             Title = request.Title,
             Description = request.Description,
             ParentId = request.ParentId,
+            SortOrder = request.SortOrder ?? 0,
             CreatedById = userId,
             CreatedBy = user
         };
@@ -70,7 +71,7 @@ public class ToDoService : IToDoService
     public async Task<ServiceResult<bool>> Update(Guid id, UpdateToDoRequest request, Guid userId)
     {
         var item = await _db.ToDos
-            .FirstOrDefaultAsync(t => t.Id == id && t.CreatedById == userId);
+          .FirstOrDefaultAsync(t => t.Id == id && t.CreatedById == userId);
 
         if (item is null)
             return ServiceResult<bool>.Fail(404, "To-do not found");
@@ -89,7 +90,7 @@ public class ToDoService : IToDoService
     public async Task<ServiceResult<bool>> Delete(Guid id, Guid userId)
     {
         var item = await _db.ToDos
-            .FirstOrDefaultAsync(t => t.Id == id && t.CreatedById == userId);
+          .FirstOrDefaultAsync(t => t.Id == id && t.CreatedById == userId);
 
         if (item is null)
             return ServiceResult<bool>.Fail(404, "To-do not found");

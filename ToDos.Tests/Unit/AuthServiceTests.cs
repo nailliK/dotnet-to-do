@@ -10,13 +10,13 @@ public class AuthServiceTests
     private static IConfiguration CreateConfig()
     {
         return new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                ["Jwt:Key"] = "TestKeyThatIsAtLeast32CharactersLong!",
-                ["Jwt:Issuer"] = "TestIssuer",
-                ["Jwt:Audience"] = "TestAudience"
-            })
-            .Build();
+          .AddInMemoryCollection(new Dictionary<string, string?>
+          {
+              ["Jwt:Key"] = "TestKeyThatIsAtLeast32CharactersLong!",
+              ["Jwt:Issuer"] = "TestIssuer",
+              ["Jwt:Audience"] = "TestAudience"
+          })
+          .Build();
     }
 
     private static AuthService CreateService()

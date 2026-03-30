@@ -11,13 +11,13 @@ namespace ToDos.Tests.Integration;
 
 public class ToDosEndpointTests : IClassFixture<TestApiFactory>
 {
-    private readonly TestApiFactory _factory;
-
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         PropertyNameCaseInsensitive = true,
         Converters = { new JsonStringEnumConverter() }
     };
+
+    private readonly TestApiFactory _factory;
 
     public ToDosEndpointTests(TestApiFactory factory)
     {
@@ -30,11 +30,11 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var username = "testuser" + Guid.NewGuid();
 
         var response = await client.PostAsJsonAsync("/api/auth/register",
-            new AuthRequest { UserName = username, Password = "password123" });
+          new AuthRequest { UserName = username, Password = "password123" });
 
         var data = await response.Content.ReadFromJsonAsync<AuthResponse>();
         client.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", data!.Token);
+          new AuthenticationHeaderValue("Bearer", data!.Token);
 
         return (client, data.Token);
     }
@@ -54,7 +54,7 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client, _) = await CreateAuthenticatedClient();
 
         var response = await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Integration test task" });
+          new CreateToDoRequest { Title = "Integration test task" });
 
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         var data = await response.Content.ReadFromJsonAsync<ToDoResponse>(JsonOptions);
@@ -69,9 +69,9 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client, _) = await CreateAuthenticatedClient();
 
         await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Task 1" });
+          new CreateToDoRequest { Title = "Task 1" });
         await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Task 2" });
+          new CreateToDoRequest { Title = "Task 2" });
 
         var response = await client.GetAsync("/api/todos");
         response.EnsureSuccessStatusCode();
@@ -87,7 +87,7 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client, _) = await CreateAuthenticatedClient();
 
         var createResponse = await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Find me" });
+          new CreateToDoRequest { Title = "Find me" });
         var created = await createResponse.Content.ReadFromJsonAsync<ToDoResponse>(JsonOptions);
 
         var response = await client.GetAsync($"/api/todos/{created!.Id}");
@@ -103,7 +103,7 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client1, _) = await CreateAuthenticatedClient();
 
         var createResponse = await client1.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Private task" });
+          new CreateToDoRequest { Title = "Private task" });
         var created = await createResponse.Content.ReadFromJsonAsync<ToDoResponse>(JsonOptions);
 
         // Different user
@@ -119,11 +119,11 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client, _) = await CreateAuthenticatedClient();
 
         var createResponse = await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Original" });
+          new CreateToDoRequest { Title = "Original" });
         var created = await createResponse.Content.ReadFromJsonAsync<ToDoResponse>(JsonOptions);
 
         var updateResponse = await client.PutAsJsonAsync($"/api/todos/{created!.Id}",
-            new UpdateToDoRequest { Title = "Updated", Status = ToDoStatus.InProgress });
+          new UpdateToDoRequest { Title = "Updated", Status = ToDoStatus.InProgress });
 
         Assert.Equal(HttpStatusCode.NoContent, updateResponse.StatusCode);
 
@@ -139,7 +139,7 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client, _) = await CreateAuthenticatedClient();
 
         var createResponse = await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Delete me" });
+          new CreateToDoRequest { Title = "Delete me" });
         var created = await createResponse.Content.ReadFromJsonAsync<ToDoResponse>(JsonOptions);
 
         var deleteResponse = await client.DeleteAsync($"/api/todos/{created!.Id}");
@@ -164,7 +164,7 @@ public class ToDosEndpointTests : IClassFixture<TestApiFactory>
         var (client, _) = await CreateAuthenticatedClient();
 
         var createResponse = await client.PostAsJsonAsync("/api/todos",
-            new CreateToDoRequest { Title = "Enum test" });
+          new CreateToDoRequest { Title = "Enum test" });
 
         var json = await createResponse.Content.ReadAsStringAsync();
         Assert.Contains("\"Pending\"", json);

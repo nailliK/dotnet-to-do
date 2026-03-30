@@ -43,7 +43,7 @@ public class AuthService : IAuthService
         await _db.SaveChangesAsync();
 
         return ServiceResult<AuthResponse>.Ok(
-            new AuthResponse(GenerateToken(user), user.Id, user.UserName));
+          new AuthResponse(GenerateToken(user), user.Id, user.UserName));
     }
 
     public async Task<ServiceResult<AuthResponse>> Login(AuthRequest request)
@@ -59,13 +59,15 @@ public class AuthService : IAuthService
             return ServiceResult<AuthResponse>.Fail(401, "Invalid credentials");
 
         return ServiceResult<AuthResponse>.Ok(
-            new AuthResponse(GenerateToken(user), user.Id, user.UserName));
+          new AuthResponse(GenerateToken(user), user.Id, user.UserName));
     }
 
     private string GenerateToken(User user)
     {
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+
+        var expiryHours = int.TryParse(_config["Jwt:ExpiryHours"], out var hours) ? hours : 24;
 
         var claims = new[]
         {
@@ -77,7 +79,7 @@ public class AuthService : IAuthService
             _config["Jwt:Issuer"],
             _config["Jwt:Audience"],
             claims,
-            expires: DateTime.UtcNow.AddHours(24),
+            expires: DateTime.UtcNow.AddHours(expiryHours),
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
         );
 
