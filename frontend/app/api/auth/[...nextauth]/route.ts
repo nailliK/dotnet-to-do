@@ -14,16 +14,28 @@ const handler = NextAuth({
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) return null;
 
-        const res = await fetch(`${API_URL}/api/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userName: credentials.username,
-            password: credentials.password,
-          }),
-        });
+        const url = `${API_URL}/api/auth/login`;
+        console.log('[NextAuth] authorize hitting:', url);
 
-        if (!res.ok) return null;
+        let res;
+        try {
+          res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              userName: credentials.username,
+              password: credentials.password,
+            }),
+          });
+        } catch (err) {
+          console.error('[NextAuth] fetch failed:', err);
+          return null;
+        }
+
+        if (!res.ok) {
+          console.error('[NextAuth] API returned:', res.status, await res.text().catch(() => ''));
+          return null;
+        }
 
         let data;
         try {

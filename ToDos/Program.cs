@@ -58,6 +58,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Auto-apply migrations (skip for in-memory provider used in tests)
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    if (db.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+        db.Database.Migrate();
+}
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
