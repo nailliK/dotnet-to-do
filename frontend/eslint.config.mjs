@@ -14,6 +14,7 @@ const eslintConfig = defineConfig([
       '@stylistic/semi': ['error', 'always'],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/quotes': ['error', 'single'],
+      '@stylistic/object-curly-spacing': ['error', 'always'],
     },
   },
   globalIgnores([

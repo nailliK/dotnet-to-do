@@ -1,4 +1,4 @@
-import {CreateToDoRequest, ToDoResponse, UpdateToDoRequest} from '@/types/to-do';
+import { CreateToDoRequest, ToDoResponse, UpdateToDoRequest } from '@/types/to-do';
 
 const REQUEST_TIMEOUT_MS = 10000;
 

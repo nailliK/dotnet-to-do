@@ -1,8 +1,8 @@
 'use client';
 
-import {signIn} from 'next-auth/react';
-import {useRouter} from 'next/navigation';
-import {useState} from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Card from '@/components/ui/card';
 
 export default function RegisterForm() {
@@ -24,8 +24,8 @@ export default function RegisterForm() {
 
     const res = await fetch('/api/auth/register', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({userName: username, password}),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userName: username, password }),
     });
 
     if (!res.ok) {
@@ -56,7 +56,7 @@ export default function RegisterForm() {
     <form onSubmit={handleSubmit}>
       <Card
         title="Register"
-        actions={[{label: 'Create Account', type: 'submit', style: 'primary', fullWidth: true}]}
+        actions={[{ label: 'Create Account', type: 'submit', style: 'primary', fullWidth: true }]}
       >
         {error && <div className="alert alert-error" role="alert">{error}</div>}
         <div className="form-control">

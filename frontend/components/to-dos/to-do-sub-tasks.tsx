@@ -1,9 +1,9 @@
 'use client';
 
-import {Draggable, Droppable} from '@hello-pangea/dnd';
+import { Draggable, Droppable } from '@hello-pangea/dnd';
 import ToDo from '@/components/to-dos/to-do';
-import {PlusIcon} from '@/components/ui/icons';
-import {ToDoResponse, UpdateToDoRequest} from '@/types/to-do';
+import { PlusIcon } from '@/components/ui/icons';
+import { ToDoResponse, UpdateToDoRequest } from '@/types/to-do';
 
 interface ToDoSubTasksProps {
   parentId: string;
@@ -13,7 +13,7 @@ interface ToDoSubTasksProps {
   onAddSubtask?: (parentId: string) => void;
 }
 
-export default function ToDoSubTasks({parentId, subTasks, onUpdate, onDelete, onAddSubtask}: ToDoSubTasksProps) {
+export default function ToDoSubTasks({ parentId, subTasks, onUpdate, onDelete, onAddSubtask }: ToDoSubTasksProps) {
   return (
     <details className="collapse collapse-arrow border border-base-300">
       <summary className="collapse-title font-semibold">

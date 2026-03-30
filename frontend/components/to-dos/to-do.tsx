@@ -1,8 +1,8 @@
 'use client';
 
-import React, {useState} from 'react';
-import {ToDoProps, ToDoState} from '@/types/to-do';
-import {CheckIcon, EditIcon, TrashIcon} from '@/components/ui/icons';
+import React, { useState } from 'react';
+import { ToDoProps, ToDoState } from '@/types/to-do';
+import { CheckIcon, EditIcon, TrashIcon } from '@/components/ui/icons';
 import ToDoEditForm from '@/components/to-dos/to-do-edit-form';
 import ToDoSubTasks from '@/components/to-dos/to-do-sub-tasks';
 
@@ -32,7 +32,7 @@ export default function ToDo({
 
   function updateField<K extends keyof ToDoState>(field: K, value: ToDoState[K]) {
     setTodo(prev => {
-      const updated = {...prev, [field]: value};
+      const updated = { ...prev, [field]: value };
       if (field === 'blockedById' && value) {
         const blocker = siblings?.find(s => s.id === value);
         if (blocker && blocker.status !== 'Completed') {

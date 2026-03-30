@@ -1,5 +1,5 @@
-import {describe, expect, it} from 'vitest';
-import {ToDoResponse, ToDoStatus} from '@/types/to-do';
+import { describe, expect, it } from 'vitest';
+import { ToDoResponse, ToDoStatus } from '@/types/to-do';
 
 // Extract filter logic to test independently
 function filterToDos(toDos: ToDoResponse[], activeFilters: Set<ToDoStatus>) {
@@ -23,9 +23,9 @@ function makeToDo(overrides: Partial<ToDoResponse> = {}): ToDoResponse {
 describe('ToDo Filters', () => {
   it('returns all items when no filters active', () => {
     const todos = [
-      makeToDo({status: 'Pending'}),
-      makeToDo({status: 'Completed'}),
-      makeToDo({status: 'InProgress'}),
+      makeToDo({ status: 'Pending' }),
+      makeToDo({ status: 'Completed' }),
+      makeToDo({ status: 'InProgress' }),
     ];
 
     const result = filterToDos(todos, new Set());
@@ -34,9 +34,9 @@ describe('ToDo Filters', () => {
 
   it('filters by single status', () => {
     const todos = [
-      makeToDo({title: 'Pending task', status: 'Pending'}),
-      makeToDo({title: 'Done task', status: 'Completed'}),
-      makeToDo({title: 'Active task', status: 'InProgress'}),
+      makeToDo({ title: 'Pending task', status: 'Pending' }),
+      makeToDo({ title: 'Done task', status: 'Completed' }),
+      makeToDo({ title: 'Active task', status: 'InProgress' }),
     ];
 
     const result = filterToDos(todos, new Set(['Completed']));
@@ -46,10 +46,10 @@ describe('ToDo Filters', () => {
 
   it('filters by multiple statuses', () => {
     const todos = [
-      makeToDo({status: 'Pending'}),
-      makeToDo({status: 'Completed'}),
-      makeToDo({status: 'InProgress'}),
-      makeToDo({status: 'Cancelled'}),
+      makeToDo({ status: 'Pending' }),
+      makeToDo({ status: 'Completed' }),
+      makeToDo({ status: 'InProgress' }),
+      makeToDo({ status: 'Cancelled' }),
     ];
 
     const result = filterToDos(todos, new Set(['Pending', 'InProgress']));
@@ -59,8 +59,8 @@ describe('ToDo Filters', () => {
   it('excludes child tasks', () => {
     const parentId = crypto.randomUUID();
     const todos = [
-      makeToDo({id: parentId, status: 'Pending'}),
-      makeToDo({status: 'Pending', parentId}),
+      makeToDo({ id: parentId, status: 'Pending' }),
+      makeToDo({ status: 'Pending', parentId }),
     ];
 
     const result = filterToDos(todos, new Set());
@@ -70,8 +70,8 @@ describe('ToDo Filters', () => {
 
   it('returns empty when filter matches nothing', () => {
     const todos = [
-      makeToDo({status: 'Pending'}),
-      makeToDo({status: 'Pending'}),
+      makeToDo({ status: 'Pending' }),
+      makeToDo({ status: 'Pending' }),
     ];
 
     const result = filterToDos(todos, new Set(['Completed']));

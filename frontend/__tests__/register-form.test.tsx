@@ -1,5 +1,5 @@
-import {render, screen, fireEvent, waitFor} from '@testing-library/react';
-import {describe, it, expect, vi, beforeEach} from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import RegisterForm from '@/app/register/register-form';
 
 const mockPush = vi.fn();
@@ -8,7 +8,7 @@ const mockSignIn = vi.fn();
 const mockFetch = vi.fn();
 
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({push: mockPush, refresh: mockRefresh}),
+  useRouter: () => ({ push: mockPush, refresh: mockRefresh }),
 }));
 
 vi.mock('next-auth/react', () => ({
@@ -38,18 +38,18 @@ describe('RegisterForm', () => {
   });
 
   it('calls register API then signs in on success', async () => {
-    mockFetch.mockResolvedValue({ok: true, json: () => Promise.resolve({})});
-    mockSignIn.mockResolvedValue({error: null});
+    mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+    mockSignIn.mockResolvedValue({ error: null });
     render(<RegisterForm/>);
 
-    fireEvent.change(screen.getByLabelText(/username/i), {target: {value: 'newuser'}});
-    fireEvent.change(screen.getByLabelText(/password/i), {target: {value: 'password123'}});
+    fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'newuser' } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByText('Create Account'));
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledWith('/api/auth/register', expect.objectContaining({
         method: 'POST',
-        body: JSON.stringify({userName: 'newuser', password: 'password123'}),
+        body: JSON.stringify({ userName: 'newuser', password: 'password123' }),
       }));
     });
 
@@ -63,12 +63,12 @@ describe('RegisterForm', () => {
   });
 
   it('redirects to home after successful registration', async () => {
-    mockFetch.mockResolvedValue({ok: true, json: () => Promise.resolve({})});
-    mockSignIn.mockResolvedValue({error: null});
+    mockFetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+    mockSignIn.mockResolvedValue({ error: null });
     render(<RegisterForm/>);
 
-    fireEvent.change(screen.getByLabelText(/username/i), {target: {value: 'newuser'}});
-    fireEvent.change(screen.getByLabelText(/password/i), {target: {value: 'password123'}});
+    fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'newuser' } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByText('Create Account'));
 
     await waitFor(() => {
@@ -79,12 +79,12 @@ describe('RegisterForm', () => {
   it('shows error when registration fails', async () => {
     mockFetch.mockResolvedValue({
       ok: false,
-      json: () => Promise.resolve({title: 'Username already exists'}),
+      json: () => Promise.resolve({ title: 'Username already exists' }),
     });
     render(<RegisterForm/>);
 
-    fireEvent.change(screen.getByLabelText(/username/i), {target: {value: 'existing'}});
-    fireEvent.change(screen.getByLabelText(/password/i), {target: {value: 'password123'}});
+    fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'existing' } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByText('Create Account'));
 
     await waitFor(() => {
@@ -95,12 +95,12 @@ describe('RegisterForm', () => {
   it('does not call signIn when registration fails', async () => {
     mockFetch.mockResolvedValue({
       ok: false,
-      json: () => Promise.resolve({title: 'Error'}),
+      json: () => Promise.resolve({ title: 'Error' }),
     });
     render(<RegisterForm/>);
 
-    fireEvent.change(screen.getByLabelText(/username/i), {target: {value: 'user'}});
-    fireEvent.change(screen.getByLabelText(/password/i), {target: {value: 'password123'}});
+    fireEvent.change(screen.getByLabelText(/username/i), { target: { value: 'user' } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByText('Create Account'));
 
     await waitFor(() => {

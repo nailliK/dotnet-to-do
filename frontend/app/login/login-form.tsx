@@ -1,8 +1,8 @@
 'use client';
 
-import {signIn} from 'next-auth/react';
-import {useRouter} from 'next/navigation';
-import {useState} from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import Card from '@/components/ui/card';
 
 export default function LoginForm() {
@@ -33,7 +33,7 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit}>
       <Card
         title="Login"
-        actions={[{label: 'Sign In', type: 'submit', style: 'primary', fullWidth: true}]}
+        actions={[{ label: 'Sign In', type: 'submit', style: 'primary', fullWidth: true }]}
       >
         {error && <div className="alert alert-error" role="alert">{error}</div>}
         <div className="form-control">

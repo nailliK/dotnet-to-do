@@ -1,6 +1,6 @@
 'use client';
 
-import {ToDoResponse, ToDoState, ToDoStatus} from '@/types/to-do';
+import { ToDoResponse, ToDoState, ToDoStatus } from '@/types/to-do';
 
 interface ToDoEditFormProps {
   todo: ToDoState;
@@ -8,7 +8,7 @@ interface ToDoEditFormProps {
   siblings?: ToDoResponse[];
 }
 
-export default function ToDoEditForm({todo, onFieldChange, siblings}: ToDoEditFormProps) {
+export default function ToDoEditForm({ todo, onFieldChange, siblings }: ToDoEditFormProps) {
   const blocker = siblings?.find(s => s.id === todo.blockedById);
   const isBlocked = !!blocker && blocker.status !== 'Completed';
 

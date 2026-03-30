@@ -1,10 +1,10 @@
 'use client';
 
-import {signOut, useSession} from 'next-auth/react';
-import {LogOutIcon} from '@/components/ui/icons';
+import { signOut, useSession } from 'next-auth/react';
+import { LogOutIcon } from '@/components/ui/icons';
 
 export default function LogoutButton() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
 
   if (!session) return null;
 
@@ -13,7 +13,7 @@ export default function LogoutButton() {
       <span className="text-sm opacity-70">{session.user?.name}</span>
       <button
         className="btn btn-ghost btn-sm btn-circle"
-        onClick={() => signOut({callbackUrl: '/login'})}
+        onClick={() => signOut({ callbackUrl: '/login' })}
         aria-label="Log out"
       >
         <LogOutIcon/>

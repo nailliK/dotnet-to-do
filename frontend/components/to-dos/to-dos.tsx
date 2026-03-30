@@ -1,16 +1,16 @@
 'use client';
 
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import Confetti from 'react-confetti';
-import {DragDropContext, Draggable, Droppable, DropResult} from '@hello-pangea/dnd';
+import { DragDropContext, Draggable, Droppable, DropResult } from '@hello-pangea/dnd';
 import ToDo from '@/components/to-dos/to-do';
 import CreateToDoModal from '@/components/to-dos/create-to-do-modal';
-import {PlusIcon} from '@/components/ui/icons';
-import {useCreateTodo, useDeleteTodo, useTodos, useUpdateTodo} from '@/hooks/use-todos';
-import {CreateToDoRequest, ToDoStatus, UpdateToDoRequest} from '@/types/to-do';
+import { PlusIcon } from '@/components/ui/icons';
+import { useCreateTodo, useDeleteTodo, useTodos, useUpdateTodo } from '@/hooks/use-todos';
+import { CreateToDoRequest, ToDoStatus, UpdateToDoRequest } from '@/types/to-do';
 
 export default function ToDos() {
-  const {data: toDos, isLoading} = useTodos();
+  const { data: toDos, isLoading } = useTodos();
   const createTodo = useCreateTodo();
   const updateTodo = useUpdateTodo();
   const deleteTodo = useDeleteTodo();
@@ -39,7 +39,7 @@ export default function ToDos() {
   function handleCreate(data: CreateToDoRequest) {
     const siblings = (toDos ?? []).filter(t => (t.parentId ?? null) === (modalParentId ?? null));
     const maxOrder = siblings.reduce((max, t) => Math.max(max, t.sortOrder), -1);
-    createTodo.mutate({...data, parentId: modalParentId, sortOrder: maxOrder + 1}, {
+    createTodo.mutate({ ...data, parentId: modalParentId, sortOrder: maxOrder + 1 }, {
       onSuccess: () => {
         modalRef.current?.close();
         setModalParentId(undefined);
@@ -51,7 +51,7 @@ export default function ToDos() {
     if (data.status === 'Completed') {
       setConfettiKey(prev => prev + 1);
     }
-    updateTodo.mutate({id, data});
+    updateTodo.mutate({ id, data });
   }
 
   function handleDelete(id: string) {
@@ -75,7 +75,7 @@ export default function ToDos() {
 
     reordered.forEach((item, index) => {
       if (item.sortOrder !== index) {
-        updateTodo.mutate({id: item.id, data: {sortOrder: index}});
+        updateTodo.mutate({ id: item.id, data: { sortOrder: index } });
       }
     });
   }
@@ -91,7 +91,7 @@ export default function ToDos() {
 
   return (
     <>
-    <Confetti key={confettiKey} recycle={false} numberOfPieces={confettiKey > 0 ? 300 : 0} style={{position: 'fixed', top: 0, left: 0, pointerEvents: 'none'}} />
+    <Confetti key={confettiKey} recycle={false} numberOfPieces={confettiKey > 0 ? 300 : 0} style={{ position: 'fixed', top: 0, left: 0, pointerEvents: 'none' }} />
     <div className="grid grid-cols-1 gap-4 justify-center content-center">
       <form className="flex gap-1 justify-self-center" onReset={() => setActiveFilters(new Set())}>
         {(['Pending', 'InProgress', 'Completed', 'Cancelled'] as ToDoStatus[]).map(status => (

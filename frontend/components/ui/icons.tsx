@@ -3,7 +3,7 @@ interface IconProps {
   'aria-label'?: string;
 }
 
-export function CheckIcon({className = 'size-[1.2em]', ...props}: IconProps) {
+export function CheckIcon({ className = 'size-[1.2em]', ...props }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className={className} aria-hidden="true" {...props}>
       <path fill="currentColor"
@@ -12,7 +12,7 @@ export function CheckIcon({className = 'size-[1.2em]', ...props}: IconProps) {
   );
 }
 
-export function EditIcon({className = 'size-[1.2em]', ...props}: IconProps) {
+export function EditIcon({ className = 'size-[1.2em]', ...props }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={className} aria-hidden="true" {...props}>
       <path fill="currentColor"
@@ -21,7 +21,7 @@ export function EditIcon({className = 'size-[1.2em]', ...props}: IconProps) {
   );
 }
 
-export function TrashIcon({className = 'size-[1.2em]', ...props}: IconProps) {
+export function TrashIcon({ className = 'size-[1.2em]', ...props }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className={className} aria-hidden="true" {...props}>
       <path fill="currentColor"
@@ -30,7 +30,7 @@ export function TrashIcon({className = 'size-[1.2em]', ...props}: IconProps) {
   );
 }
 
-export function PlusIcon({className = 'size-[1.2em]', ...props}: IconProps) {
+export function PlusIcon({ className = 'size-[1.2em]', ...props }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className={className} aria-hidden="true" {...props}>
       <path fill="currentColor"
@@ -39,7 +39,7 @@ export function PlusIcon({className = 'size-[1.2em]', ...props}: IconProps) {
   );
 }
 
-export function LogOutIcon({className = 'size-[1.2em]', ...props}: IconProps) {
+export function LogOutIcon({ className = 'size-[1.2em]', ...props }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className={className} aria-hidden="true" {...props}>
       <path fill="currentColor"

@@ -1,6 +1,6 @@
-import {fireEvent, render, screen} from '@testing-library/react';
-import {describe, expect, it, vi} from 'vitest';
-import {createRef} from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import { createRef } from 'react';
 import CreateToDoModal from '@/components/to-dos/create-to-do-modal';
 
 function renderModal(props: Partial<Parameters<typeof CreateToDoModal>[0]> = {}) {
@@ -15,7 +15,7 @@ function renderModal(props: Partial<Parameters<typeof CreateToDoModal>[0]> = {})
       {...props}
     />,
   );
-  return {ref, onSave};
+  return { ref, onSave };
 }
 
 describe('CreateToDoModal', () => {
@@ -25,7 +25,7 @@ describe('CreateToDoModal', () => {
   });
 
   it('shows "New Sub-Task" title when isSubtask', () => {
-    renderModal({isSubtask: true});
+    renderModal({ isSubtask: true });
     expect(screen.getByText('New Sub-Task')).toBeInTheDocument();
   });
 
@@ -37,7 +37,7 @@ describe('CreateToDoModal', () => {
   it('enables create button when title has text', () => {
     renderModal();
     fireEvent.change(screen.getByPlaceholderText('What do you want to do?'), {
-      target: {value: 'New task'},
+      target: { value: 'New task' },
     });
     expect(screen.getByText('Create')).not.toBeDisabled();
   });
@@ -45,19 +45,19 @@ describe('CreateToDoModal', () => {
   it('disables create button when title is only whitespace', () => {
     renderModal();
     fireEvent.change(screen.getByPlaceholderText('What do you want to do?'), {
-      target: {value: '   '},
+      target: { value: '   ' },
     });
     expect(screen.getByText('Create')).toBeDisabled();
   });
 
   it('calls onSave with trimmed title and description', () => {
-    const {onSave} = renderModal();
+    const { onSave } = renderModal();
 
     fireEvent.change(screen.getByPlaceholderText('What do you want to do?'), {
-      target: {value: '  Buy milk  '},
+      target: { value: '  Buy milk  ' },
     });
     fireEvent.change(screen.getByPlaceholderText('Add some details...'), {
-      target: {value: '  From the store  '},
+      target: { value: '  From the store  ' },
     });
     fireEvent.submit(screen.getByPlaceholderText('What do you want to do?').closest('form')!);
 
@@ -68,10 +68,10 @@ describe('CreateToDoModal', () => {
   });
 
   it('sends undefined description when empty', () => {
-    const {onSave} = renderModal();
+    const { onSave } = renderModal();
 
     fireEvent.change(screen.getByPlaceholderText('What do you want to do?'), {
-      target: {value: 'Task'},
+      target: { value: 'Task' },
     });
     fireEvent.submit(screen.getByPlaceholderText('What do you want to do?').closest('form')!);
 
@@ -82,9 +82,9 @@ describe('CreateToDoModal', () => {
   });
 
   it('shows spinner when loading', () => {
-    renderModal({isLoading: true});
+    renderModal({ isLoading: true });
     fireEvent.change(screen.getByPlaceholderText('What do you want to do?'), {
-      target: {value: 'Task'},
+      target: { value: 'Task' },
     });
     expect(screen.queryByText('Create')).not.toBeInTheDocument();
     const submitButton = document.querySelector('button[type="submit"]') as HTMLButtonElement;

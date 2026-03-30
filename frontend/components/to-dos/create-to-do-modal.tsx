@@ -1,7 +1,7 @@
 'use client';
 
-import React, {useState} from 'react';
-import {CreateToDoRequest} from '@/types/to-do';
+import React, { useState } from 'react';
+import { CreateToDoRequest } from '@/types/to-do';
 
 interface CreateToDoModalProps {
   onSave: (data: CreateToDoRequest) => void;
@@ -10,7 +10,7 @@ interface CreateToDoModalProps {
 }
 
 const CreateToDoModal = React.forwardRef<HTMLDialogElement, CreateToDoModalProps>(
-  function CreateToDoModal({onSave, isLoading, isSubtask}, ref) {
+  function CreateToDoModal({ onSave, isLoading, isSubtask }, ref) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 

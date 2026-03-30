@@ -2,7 +2,7 @@
 
 import { CardProps, sizeMap, styleMap } from '@/types/card';
 
-export default function Card({size = 'md', title, children, actions}: CardProps) {
+export default function Card({ size = 'md', title, children, actions }: CardProps) {
   return (
     <div className={`card ${sizeMap[size]} card-border bg-base-200 w-96 shadow-md`}>
       <div className="card-body">
