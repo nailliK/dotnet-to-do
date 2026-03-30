@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Confetti from 'react-confetti';
 import {DragDropContext, Draggable, Droppable, DropResult} from '@hello-pangea/dnd';
 import ToDo from '@/components/to-dos/to-do';
@@ -22,7 +22,11 @@ export default function ToDos() {
   function toggleFilter(status: ToDoStatus) {
     setActiveFilters(prev => {
       const next = new Set(prev);
-      next.has(status) ? next.delete(status) : next.add(status);
+      if (next.has(status)) {
+        next.delete(status);
+      } else {
+        next.add(status);
+      }
       return next;
     });
   }

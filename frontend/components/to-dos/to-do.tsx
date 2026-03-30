@@ -56,7 +56,11 @@ export default function ToDo({
   }
 
   function toggleEdit() {
-    isEditing ? handleSave() : setIsEditing(true);
+    if (isEditing) {
+      handleSave();
+    } else {
+      setIsEditing(true);
+    }
   }
 
   const actionsVisible = isEditing || showActions;
